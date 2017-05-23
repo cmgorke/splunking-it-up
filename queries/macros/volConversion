@@ -1,0 +1,9 @@
+#############################################################################
+##-----------------------MACRO-----volConversion---------------------------##
+##-------------------------------------------------------------------------##
+## This macro converts changes byte values to strings and converts them to ##
+## appropriate level. make sure to append "vol_" to the beginning of the   ##
+## fields you want converted before using                                  ##
+#############################################################################
+
+| foreach vol_* [eval <<FIELD>>=if(<<FIELD>> >= pow(1024,3), tostring(round(<<FIELD>>/pow(1024,3),3))+ " GB", if(<<FIELD>> >= pow(1024,2), tostring(round(<<FIELD>>/pow(1024,2),3))+ " MB", if(<<FIELD>> >= pow(1024,1), tostring(round(<<FIELD>>/pow(1024,2),3))+ " KB", tostring(round(<<FIELD>>)) + " B")))] | rename vol_* as * 
